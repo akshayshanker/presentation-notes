@@ -1,0 +1,235 @@
+% journeys_econark.sty
+% A Beamer theme for the "Journeys x Econ-ARK" brand.
+% v11.0: Added a standard, syntax-highlighted code block format.
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemejourneys_econark}[2025/07/08 Journeys x Econ-ARK Beamer Theme v11.0]
+
+%----- CORE PACKAGES -----
+% tikz is used for drawing the progress bar in the header.
+\RequirePackage{tikz}
+% tgheros (TeX Gyre Heros) is a sharp, modern sans-serif font (Helvetica clone).
+\RequirePackage{tgheros}
+\usepackage[T1]{fontenc}
+% listings is used for creating styled code blocks.
+\RequirePackage{listings}
+
+%----- 1. COLOR PALETTE (True Obsidian Inspired) -----
+% This palette uses a darker background and brighter foreground for a sharp, high-contrast feel.
+\definecolor{OBSIDIAN_BG}{HTML}{1E1E1E}      % Background: A very dark, near-black charcoal.
+\definecolor{OBSIDIAN_FG}{HTML}{E0E2E4}      % Foreground/Text: A clear, bright off-white for maximum readability.
+\definecolor{OBSIDIAN_SUBTLE}{HTML}{686868}  % Subtle UI elements: Dividers, footers, section in header.
+\definecolor{OBSIDIAN_PRIMARY}{HTML}{5899e4} % Primary Accent (Blue): For structure, titles, links. A classic tech blue.
+\definecolor{OBSIDIAN_SECONDARY}{HTML}{9479D4}% Secondary Accent (Purple): The signature Obsidian accent for subtitles and sections.
+\definecolor{OBSIDIAN_SUCCESS}{HTML}{87c375} % Success/Example (Green): A slightly more vibrant green for examples.
+\definecolor{OBSIDIAN_ALERT}{HTML}{e2757c}   % Alert (Red): A slightly softer red for alerts.
+% New colors for code syntax highlighting
+\definecolor{OBSIDIAN_CODE_BG}{HTML}{23272E} % A slightly different dark shade for code blocks
+
+%----- 2. FONT THEME -----
+% Defines the fonts for various parts of the presentation for a consistent hierarchy.
+\renewcommand*\familydefault{\sfdefault} % Set the default font to sans-serif (tgheros)
+\setbeamerfont{title}{series=\bfseries, size=\Large}
+\setbeamerfont{subtitle}{size=\normalsize}
+\setbeamerfont{author}{size=\normalsize}
+\setbeamerfont{institute}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{frametitle}{series=\bfseries, size=\large}
+\setbeamerfont{framesubtitle}{size=\normalsize}
+\setbeamerfont{section title}{size=\Large, series=\bfseries}
+\setbeamerfont{subsection title}{size=\large, series=\bfseries}
+% Use a monospaced font for code/verbatim text to give it a technical feel.
+\setbeamerfont{verbatim}{family=\ttfamily}
+% Set normal text to be slightly smaller
+\setbeamerfont{normal text}{size=\small}
+
+%----- 3. BEAMER COLOR THEME -----
+% Maps the new high-contrast color palette to Beamer's structural elements.
+\setbeamercolor{normal text}{fg=OBSIDIAN_FG, bg=OBSIDIAN_BG}
+\setbeamercolor{structure}{fg=OBSIDIAN_PRIMARY}
+\setbeamercolor{title}{fg=OBSIDIAN_FG}
+\setbeamercolor{subtitle}{fg=OBSIDIAN_SECONDARY}
+\setbeamercolor{frametitle}{fg=OBSIDIAN_FG}
+\setbeamercolor{footline}{fg=OBSIDIAN_SUBTLE, bg=OBSIDIAN_BG}
+\setbeamercolor{item}{fg=OBSIDIAN_PRIMARY}
+\setbeamercolor{alerted text}{fg=OBSIDIAN_ALERT}
+\setbeamercolor{href}{fg=OBSIDIAN_SECONDARY}
+\setbeamercolor{example text}{fg=OBSIDIAN_SUCCESS}
+
+% --- Block Colors ---
+% Blocks are now sharp-edged. The title bar uses a solid accent color for a clean, defined look.
+\setbeamercolor{block title}{fg=OBSIDIAN_BG, bg=structure.fg}
+\setbeamercolor{block body}{bg=OBSIDIAN_BG!80!black}
+\setbeamercolor{block title alerted}{fg=OBSIDIAN_BG, bg=alerted text.fg}
+\setbeamercolor{block body alerted}{bg=OBSIDIAN_BG!80!black}
+\setbeamercolor{block title example}{fg=OBSIDIAN_BG, bg=example text.fg}
+\setbeamercolor{block body example}{bg=OBSIDIAN_BG!80!black}
+
+%----- 4. CODE LISTING STYLE (using listings package) -----
+% Defines a standard, modern-looking code block with syntax highlighting.
+% Use with \begin{lstlisting}[language=Python] ... \end{lstlisting}
+\lstdefinestyle{obsidian}{
+    backgroundcolor=\color{OBSIDIAN_CODE_BG},   % Custom background color
+    commentstyle=\color{OBSIDIAN_SUBTLE},       % Comments are subtle gray
+    keywordstyle=\color{OBSIDIAN_SECONDARY},    % Keywords are purple
+    numberstyle=\tiny\color{OBSIDIAN_SUBTLE},   % Line numbers are small and subtle
+    stringstyle=\color{OBSIDIAN_SUCCESS},       % Strings are green
+    basicstyle=\ttfamily\scriptsize\color{OBSIDIAN_FG}, % Basic text style
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,                               % Line numbers on the left
+    numbersep=15pt,                             % Increased space between numbers and code
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,                               % A single, sharp-edged frame
+    framerule=0.6pt,
+    rulecolor=\color{OBSIDIAN_SUBTLE},          % Frame color is subtle gray
+    framexleftmargin=8pt,                      % Increased padding
+    framexrightmargin=8pt,                     % Increased padding
+    framextopmargin=6pt,                       % Increased padding
+    framexbottommargin=6pt,                    % Increased padding
+    extendedchars=true
+}
+\lstset{style=obsidian} % Apply this style to all lstlisting environments
+
+%----- 5. LAYOUT & TEMPLATES -----
+\setbeamertemplate{navigation symbols}{} % No navigation symbols for a clean look.
+\setbeamertemplate{blocks}[default] % Sharp-edged blocks.
+\setbeamertemplate{itemize item}{\color{OBSIDIAN_PRIMARY}\bfseries\textendash} % Use a colored dash for items.
+\setbeamertemplate{itemize subitem}{\color{OBSIDIAN_PRIMARY}\bfseries\textbullet} % Use a bullet for sub-items.
+
+% --- Title Slide ---
+% A minimalist, centered title slide that uses typography and space.
+\setbeamertemplate{title page}{%
+  \vbox to \textheight{%
+    \vfil
+    \centering
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      \usebeamerfont{title}\inserttitle\par
+    \end{beamercolorbox}%
+    \ifx\insertsubtitle\@empty\else
+      \vskip0.5em
+      \begin{beamercolorbox}[sep=4pt,center]{subtitle}
+        {\usebeamerfont{subtitle}\insertsubtitle\par}
+      \end{beamercolorbox}%
+    \fi%
+    \vfil
+    \usebeamerfont{author}\insertauthor\par
+    \vskip0.25em
+    \usebeamerfont{institute}\insertinstitute\par
+    \vskip0.25em
+    \usebeamerfont{date}\insertdate\par
+    \vfil
+  }
+}
+
+% --- Frametitle ---
+% A modern, compact frametitle with progress bar, title, and current section.
+\setbeamertemplate{frametitle}{
+  % Progress bar
+  \begin{tikzpicture}[overlay, remember picture]
+    \fill[color=structure.fg!30!OBSIDIAN_BG] (current page.north west) rectangle ++(\paperwidth, -2pt);
+    \fill[color=structure.fg] (current page.north west) rectangle ++({(\insertframenumber/\inserttotalframenumber)*\paperwidth}, -2pt);
+  \end{tikzpicture}
+  \vskip2pt % Space for the progress bar to show
+  % The main frametitle bar
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2.2ex, dp=1.0ex, leftskip=1cm, rightskip=1cm]{frametitle}
+      \usebeamerfont{frametitle}\insertframetitle
+      \ifx\insertsectionhead\@empty\else % Check if section exists
+        \hfill % Pushes the section title to the right
+        \usebeamerfont{frametitle}\small\color{OBSIDIAN_SUBTLE}\insertsectionhead
+      \fi
+  \end{beamercolorbox}%
+  % Add framesubtitle if it exists
+  \ifx\insertframesubtitle\@empty\else
+    \begin{beamercolorbox}[wd=\paperwidth, ht=1.8ex, dp=0.6ex, leftskip=1cm, rightskip=1cm]{framesubtitle}
+      \usebeamerfont{framesubtitle}\color{OBSIDIAN_SECONDARY}\insertframesubtitle
+    \end{beamercolorbox}%
+  \fi
+  \nointerlineskip
+  \color{OBSIDIAN_SUBTLE}\rule{\paperwidth}{0.6pt}
+}
+% This command pulls the frame content up to reduce space below the header.
+\addtobeamertemplate{frametitle}{}{\vspace{-0.7cm}}
+
+% --- Footline ---
+% A clean footline with author on the left and page number on the right.
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.0ex,dp=0.8ex,leftskip=1cm]{footline}%
+      \usebeamerfont{author in head/foot}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.0ex,dp=0.8ex,right,rightskip=1cm]{footline}%
+      \insertframenumber{} / \inserttotalframenumber
+    \end{beamercolorbox}%
+  }%
+  \vskip0pt%
+}
+
+% Section page template
+\setbeamertemplate{section page}{
+  \begin{centering}
+    \vfill
+    \begin{beamercolorbox}[sep=16pt,center,rounded=true,shadow=true]{section title}
+      \usebeamerfont{section title}\insertsection\par
+    \end{beamercolorbox}
+    \vfill
+  \end{centering}
+}
+
+% Style for section page
+\setbeamerfont{section title}{size=\Large,series=\bfseries}
+\setbeamercolor{section title}{fg=OBSIDIAN_FG,bg=OBSIDIAN_CODE_BG}
+
+% --- Sectioning Pages ---
+% A full-page, minimalist section divider with a "spiffy" decorative rule.
+\setbeamertemplate{section page}{%
+  \begin{beamercolorbox}[center,wd=\paperwidth,ht=\paperheight]{normal text}
+    \vbox to \paperheight{
+        \vfil
+        \centering
+        \usebeamerfont{section title}
+        {\color{OBSIDIAN_SECONDARY}\insertsection}
+        \par
+        \vskip.5em
+        {\color{OBSIDIAN_SUBTLE}\rule{0.25\textwidth}{1pt}}
+        \vfil
+    }
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{%
+  \begin{beamercolorbox}[center,wd=\paperwidth,ht=\paperheight]{normal text}
+    \vbox to \paperheight{
+        \vfil
+        \centering
+        \usebeamerfont{subsection title}
+        {\color{OBSIDIAN_PRIMARY}\insertsubsection}
+        \vfil
+    }
+  \end{beamercolorbox}
+}
+
+%----- 6. SPACING IMPROVEMENTS -----
+% Better spacing for math equations
+\setlength{\abovedisplayskip}{8pt}
+\setlength{\belowdisplayskip}{8pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Reduce itemize spacing
+\setbeamertemplate{itemize/enumerate body begin}{\small\setlength{\itemsep}{2pt}}
+\setbeamertemplate{itemize/enumerate subbody begin}{\footnotesize\setlength{\itemsep}{1pt}}
+
+% Tighter paragraph spacing
+\setlength{\parskip}{4pt}
+
+% Adjust block spacing
+\addtobeamertemplate{block begin}{}{\vspace{-2pt}}
+\addtobeamertemplate{block end}{}{\vspace{-2pt}}
+
+\mode<all>
